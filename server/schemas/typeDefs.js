@@ -1,49 +1,50 @@
 // import the gql ragged template function
-import { gql } from "apollo-server-express";
+const { gql } = require("apollo-server-express");
 
 // create typeDefs
 const typeDefs = gql`
-    input BookInput {
-        author: [String]!
-        description: String!
-        bookId: String!
-        image: String!
-        link: String!
-    }
+	input BookInput {
+		author: [String]!
+		description: String!
+		bookId: String!
+		image: String!
+		link: String!
+	}
 
 	type User {
-        _id: ID
-        username: String
-        email: String
-        bookCount = Int
-        savedBooks [Book]
-    }
+		_id: ID
+		username: String
+		email: String
+		bookCount: Int
+		savedBooks: [Book]
+	}
 
-    type Book {
-        _id: ID
-        bookId: String
-        authors: [String] 
-        description: String
-        title: String
-        image: String
-        link: String
-    }
+	type Book {
+		_id: ID
+		bookId: String
+		authors: [String]
+		description: String
+		title: String
+		image: String
+		link: String
+	}
 
-    type Auth {
-        token: ID!
-        user: User
-    }
+	type Auth {
+		token: ID!
+		user: User
+	}
 
-    type Query {
-        me: User
-    }
+	type Query {
+		me: User
+		user(username: String): [User]
+	}
 
-    type Mutation {
-        login(email: String!, password: String!): Auth
-        addUser(username: String!, email: String!, password: String!): Auth
-        saveBook(input: BookInput): User
-        removeBook(bookId: String!): User
-    }
+	type Mutation {
+		login(email: String!, password: String!): Auth
+		addUser(username: String!, email: String!, password: String!): Auth
+		saveBook(input: BookInput): User
+		removeBook(bookId: String!): User
+	}
 `;
 
 // export typeDefs

@@ -8,7 +8,7 @@ import {
 	Button,
 } from "react-bootstrap";
 
-import { getMe, deleteBook } from "../utils/API";
+// import { getMe, deleteBook } from "../utils/API";
 import Auth from "../utils/auth";
 import { removeBookId } from "../utils/localStorage";
 import { QUERY_ME } from "../utils/queries";
@@ -18,12 +18,23 @@ const SavedBooks = () => {
 
 	const { loading, data } = useQuery(QUERY_ME);
 
+	console.log("DATA", data);
+
 	const userData = data?.me || {};
 
-	console.log(userData);
+	console.log("USERDATA", userData);
 
 	if (loading) {
 		return <h2>LOADING...</h2>;
+	}
+
+	if (!userData.username) {
+		return (
+			<h4>
+				You need to be logged in to see this page. Use the navigation links
+				above to sign up or log in!
+			</h4>
+		);
 	}
 
 	// use this to determine if `useEffect()` hook needs to run again
